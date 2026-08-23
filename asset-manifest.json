@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/css/main.86574a70.css",
+    "main.js": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/js/main.46d6e08e.js",
+    "static/js/453.52d669d6.chunk.js": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/js/453.52d669d6.chunk.js",
+    "static/media/logo.svg": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/index.html",
+    "main.86574a70.css.map": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/css/main.86574a70.css.map",
+    "main.46d6e08e.js.map": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/js/main.46d6e08e.js.map",
+    "453.52d669d6.chunk.js.map": "//github.com/aiiluv/Witches-in-the-underworld-photobooth/static/js/453.52d669d6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.86574a70.css",
+    "static/js/main.46d6e08e.js"
+  ]
+}
