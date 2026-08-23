@@ -18,10 +18,10 @@ function App() {
 
         <div className="navbar-inline">
           <ul className="nav">
-            <li><a href="https://aiiluv.github.io/witches-in-the-underworld/index.html">Home?</a></li>
-            <li><a href="https://aiiluv.github.io/witches-in-the-underworld/game.html">Minigames</a></li>
-            <li><a href="https://aiiluv.github.io/witches-in-the-underworld/quiz.html">Your spark</a></li>
-            <li><a href="https://aiiluv.github.io/witches-in-the-underworld/gacha.html">Wonderbox</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/">Home?</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/game.html">Minigames</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/quiz.html">Your spark</a></li>
+            <li><a href="https://aiiluv.github.io/witches-in-the-underworld/wonderbox.html">Wonderbox</a></li>
             <li><a href="https://aiiluv.github.io/witches-in-the-underworld-photobooth/">Photobooth</a></li>
           </ul>
         </div>
