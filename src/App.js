@@ -1,48 +1,52 @@
-import logo from './logo.svg';
 import React from 'react';
 import Photobooth from './components/photobooth';
 import './styles/global.css';
 import './App.css';
 
-const logoSrc = "/assets/logo"
+import logoImg from './assets/logo/logo.png';
+
 function App() {
   return (
-      <div className="App-header" style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection:"column",
-        alignItems: "center"
-      }}>
-        <div style={{
-          width: "100%",
-          maxWidth: 1200,
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          padding: "20px 32px"
-        }}>
-          <img src={logoSrc} alt="Witches-logo" style={{width: 50}}/>
-          <h1 style={{
-            fontFamily: "Cantika cute",
-            color: "#8c5b4a",
-            margin: 0
-          }}>
-            Witches in the underworld photobooth
-          </h1>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Navigation */}
+      <nav>
+        <div id="grid-item">
+          <a href="index.html">
+            <img src={logoImg} id="logo" alt="Logo" />
+          </a>
         </div>
 
-        <div style={{
-          flex: 1,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingBottom: "40px"
-        }}>
-          <Photobooth />
+        <div className="navbar-inline">
+          <ul className="nav">
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/index.html">Home?</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/game.html">Minigames</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/index.html">Your spark</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/wonderbox.html">Wonderbox</a></li>
+            <li><a href="https://aiiluv.github.io/Witches-in-the-underworld-photobooth/">Photobooth</a></li>
+          </ul>
         </div>
-        
-      </div>
+      </nav>
+
+      {/* Photobooth Content - diberi paddingTop agar tidak tertimpa navbar fixed */}
+      <main style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: "90px"
+      }}>
+        <h1 style={{
+          fontFamily: "Cantika cute, sans-serif",
+          color: "#ffffff",
+          margin: "0 0 10px 0",
+          textAlign: "center"
+        }}>
+          Witches in the underworld photobooth
+        </h1>
+
+        <Photobooth />
+      </main>
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@
   "name": "photobooth",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://https://github.com/aiiluv/Witches-in-the-underworld-photobooth",
+  "homepage": "https://aiiluv.github.io/Witches-in-the-underworld-photobooth",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

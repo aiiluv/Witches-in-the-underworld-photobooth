@@ -1,39 +1,41 @@
 import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 
-const frameOptions = [
-  "./assets/frames/frame1.png",
-  "./assets/frames/frame2.png",
-];
 
-const stickerOptions = [
-  "/assets/stickers/sticker1.png",
-  "/assets/stickers/sticker2.png",
-  "/assets/stickers/sticker3.png",
-];
+import frame1 from "../assets/frames/frame1.png";
+import frame2 from "../assets/frames/frame2.png";
+
+import sticker1 from "../assets/stickers/sticker1.png";
+import sticker2 from "../assets/stickers/sticker2.png";
+import sticker3 from "../assets/stickers/sticker3.png";
+
+
+const frameOptions = [frame1, frame2];
+const stickerOptions = [sticker1, sticker2, sticker3];
 
 const videoConstraints = { width: 953, height: 599, facingMode: "user" };
 const SLOT_WIDTH = 953;
 const SLOT_HEIGHT = 599;
+const STICKER_SIZE = 150;
+
+const slots = [
+  { x: 123, y: 78 },
+  { x: 123, y: 697 },
+  { x: 123, y: 1286 },
+  { x: 123, y: 1885 },
+];
 
 export default function Photobooth() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const frameImgRef = useRef(null);
 
-  const slots = [
-    { x: 123, y: 78 },
-    { x: 123, y: 697 },
-    { x: 123, y: 1286 },
-    { x: 123, y: 1885 },
-  ];
-
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [mode, setMode] = useState("photo");
 
   const [photos, setPhotos] = useState([]);
   const [photoCount, setPhotoCount] = useState(0);
-  const [canTakePhoto, setCanTakePhoto] = useState(true); // FIXED: boolean init
+  const [canTakePhoto, setCanTakePhoto] = useState(true);
   const [draggingPhoto, setDraggingPhoto] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [countdown, setCountdown] = useState(null);
@@ -80,7 +82,7 @@ export default function Photobooth() {
       const drawW = p.img.width * p.scale;
       const drawH = p.img.height * p.scale;
       const dx = slot.x + p.offsetX;
-      const dy = slot.y + p.offsetY; // FIXED: offsety -> offsetY
+      const dy = slot.y + p.offsetY;
 
       ctx.save();
       ctx.beginPath();
@@ -97,14 +99,14 @@ export default function Photobooth() {
 
     // 3. Gambar Sticker
     stickers.forEach((s, i) => {
-    const size = s.size || STICKER_SIZE;
-    ctx.drawImage(s.img, s.x, s.y, size, size);
+      const size = s.size || STICKER_SIZE;
+      ctx.drawImage(s.img, s.x, s.y, size, size);
 
-    if (i === selectedSticker) {
+      if (i === selectedSticker) {
         ctx.strokeStyle = "#ff7aa2";
-        ctx.lineWidth = 6; // Ditebalkan sedikit agar terlihat di canvas besar
+        ctx.lineWidth = 6;
         ctx.strokeRect(s.x, s.y, size, size);
-    }
+      }
     });
   };
 
@@ -209,50 +211,46 @@ export default function Photobooth() {
   };
 
   // Drag Photos & Stickers
-  const STICKER_SIZE = 150;
-
   const handleMouseDown = (e) => {
-    const {x, y} = getCoords(e);
+    const { x, y } = getCoords(e);
 
     if (mode === "photo") {
-        for (let i = photos.length - 1; i >= 0; i--) {
-            const p = photos[i];
-            const slot = slots[p.slotIndex];
-            const w = p.img.width * p.scale;
-            const h = p.img.height * p.scale;
+      for (let i = photos.length - 1; i >= 0; i--) {
+        const p = photos[i];
+        const slot = slots[p.slotIndex];
+        const w = p.img.width * p.scale;
+        const h = p.img.height * p.scale;
 
-            if (
-                x >= slot.x + p.offsetX &&
-                x <= slot.x + p.offsetX + w &&
-                y >= slot.y + p.offsetY &&
-                y <= slot.y + p.offsetY + h
-            ) {
-                setDraggingPhoto(i);
-                setDragOffset({
-                    x: x - slot.x - p.offsetX,
-                    y: y - slot.y - p.offsetY,
-                });
-                return;
-            }
+        if (
+          x >= slot.x + p.offsetX &&
+          x <= slot.x + p.offsetX + w &&
+          y >= slot.y + p.offsetY &&
+          y <= slot.y + p.offsetY + h
+        ) {
+          setDraggingPhoto(i);
+          setDragOffset({
+            x: x - slot.x - p.offsetX,
+            y: y - slot.y - p.offsetY,
+          });
+          return;
         }
+      }
     }
 
     if (mode === "decorate") {
-    for (let i = stickers.length - 1; i >= 0; i--) {
-      const s = stickers[i];
-      const size = s.size || STICKER_SIZE;
+      for (let i = stickers.length - 1; i >= 0; i--) {
+        const s = stickers[i];
+        const size = s.size || STICKER_SIZE;
 
-      // Cek apakah koordinat klik berada di dalam area stiker
-      if (x >= s.x && x <= s.x + size && y >= s.y && y <= s.y + size) {
-        setDraggingSticker(i);
-        setSelectedSticker(i);
-        setDragOffset({ x: x - s.x, y: y - s.y });
-        return;
+        if (x >= s.x && x <= s.x + size && y >= s.y && y <= s.y + size) {
+          setDraggingSticker(i);
+          setSelectedSticker(i);
+          setDragOffset({ x: x - s.x, y: y - s.y });
+          return;
+        }
       }
+      setSelectedSticker(null);
     }
-    // Jika klik di area kosong Canvas, lepas seleksi stiker
-    setSelectedSticker(null);
-  }
   };
 
   const handleMouseMove = (e) => {
@@ -296,23 +294,19 @@ export default function Photobooth() {
 
   // Add Sticker
   const addSticker = (src) => {
-  const img = new Image();
-  img.src = src;
-  img.onload = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    const size = 150; // Ukuran stiker di skala canvas
-    // Munculkan di tengah-tengah Canvas
-    const spawnX = (canvas.width - size) / 2;
-    const spawnY = (canvas.height - size) / 2;
+      const size = STICKER_SIZE;
+      const spawnX = (canvas.width - size) / 2;
+      const spawnY = (canvas.height - size) / 2;
 
-    setStickers((s) => [
-      ...s,
-      { img, x: spawnX, y: spawnY, size },
-    ]);
+      setStickers((s) => [...s, { img, x: spawnX, y: spawnY, size }]);
+    };
   };
-};
 
   // Delete Sticker Event
   useEffect(() => {
@@ -345,21 +339,7 @@ export default function Photobooth() {
       {/* Top Bar */}
       <div style={topBar}>
         {selectedFrame && (
-          <button
-            style={{
-              ...buttonStyle,
-              position: "absolute",
-              left: 0,
-              top: 10,
-              height: 40,
-              padding: "0 16px",
-              lineHeight: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onClick={handleBack}
-          >
+          <button style={backButtonStyle} onClick={handleBack}>
             ← Back
           </button>
         )}
@@ -375,32 +355,32 @@ export default function Photobooth() {
 
       <div style={mainContent}>
         {!selectedFrame ? (
-          <div style={{ display: "flex", gap: 24 }}>
-            {frameOptions.map((src) => {
+          <div style={{ display: "flex", gap: 40, justifyContent: "center", alignItems: "center", width: "100%", padding: "20px" }}>
+            {frameOptions.map((src, index) => {
               const isSelected = selectedFrame === src;
 
               return (
                 <img
-                  key={src}
+                  key={index}
                   src={src}
                   alt="frame"
                   onClick={() => setSelectedFrame(src)}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.08)";
-                    e.currentTarget.style.boxShadow =
-                      "0 12px 30px rgba(255,122,162,0.45)";
+                    e.currentTarget.style.transform = "scale(1.03)";
+                    e.currentTarget.style.filter = "brightness(1.15)";
+                    e.currentTarget.style.boxShadow = "0 10px 25px rgba(255,255,255,0.4)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.filter = "brightness(1)";
                     e.currentTarget.style.boxShadow = frameThumb.boxShadow;
                   }}
                   style={{
                     ...frameThumb,
-                    transform: isSelected ? "scale(1.08)" : "scale(1)",
-                    transition:
-                      "transform 0.25s ease, box-shadow 0.25s ease",
+                    transform: isSelected ? "scale(1.03)" : "scale(1)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease",
                     boxShadow: isSelected
-                      ? "0 12px 30px rgba(255,122,162,0.45)"
+                      ? "0 10px 25px rgba(255,255,255,0.4)"
                       : frameThumb.boxShadow,
                   }}
                 />
@@ -425,24 +405,7 @@ export default function Photobooth() {
 
                     {/* Countdown Overlay */}
                     {countdown != null && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 96,
-                          fontWeight: "bold",
-                          color: "white",
-                          textShadow: "0 4px 20px rgba(0,0,0,0.6)",
-                          background: "rgba(0,0,0,0.25)",
-                          borderRadius: 12,
-                          pointerEvents: "none",
-                        }}
-                      >
-                        {countdown}
-                      </div>
+                      <div style={countdownOverlay}>{countdown}</div>
                     )}
                   </div>
 
@@ -467,14 +430,7 @@ export default function Photobooth() {
 
                     {/* Redo Button */}
                     {photoCount > 0 && (
-                      <button
-                        style={{
-                          ...buttonStyle,
-                          fontSize: 22,
-                          padding: "4px 10px",
-                        }}
-                        onClick={redoLastPhoto}
-                      >
+                      <button style={redoButtonStyle} onClick={redoLastPhoto}>
                         ⟳
                       </button>
                     )}
@@ -502,26 +458,17 @@ export default function Photobooth() {
               <canvas
                 ref={canvasRef}
                 style={{
-                    width: 200,
-                    height: 500,
-                    borderRadius: 16,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-                    cursor: mode === "decorate" ? "pointer" : "default",
+                  ...canvasStyle,
+                  cursor: mode === "decorate" ? "pointer" : "default",
                 }}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseUp} // Mencegah freeze saat mouse keluar canvas
-                />
+                onMouseLeave={handleMouseUp}
+              />
 
               {mode === "decorate" && (
-                <div
-                  style={{
-                    marginTop: 16,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
+                <div style={downloadContainer}>
                   <button style={buttonStyle} onClick={downloadPhoto}>
                     Download
                   </button>
@@ -541,10 +488,12 @@ const centerCol = {
   flexDirection: "column",
   alignItems: "center",
   gap: 20,
+  width: "100%",
 };
 
 const topBar = {
-  width: 700,
+  width: "100%", // Diperlebar agar tidak ada batasan ketat
+  maxWidth: 900,
   height: 60,
   position: "relative",
   marginBottom: 20,
@@ -564,13 +513,32 @@ const buttonStyle = {
   background: "white",
 };
 
-const row = { display: "flex", gap: 40, alignItems: "flex-start" };
+const backButtonStyle = {
+  ...buttonStyle,
+  position: "absolute",
+  left: 20,
+  top: 10,
+  height: 40,
+  padding: "0 16px",
+  lineHeight: "40px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const redoButtonStyle = {
+  ...buttonStyle,
+  fontSize: 22,
+  padding: "4px 10px",
+};
+
+const row = { display: "flex", gap: 40, alignItems: "flex-start", justifyContent: "center" };
 
 const frameThumb = {
-  width: 180,
+  width: 220, // Diperbesar sedikit agar proporsional
   cursor: "pointer",
   borderRadius: 12,
-  boxShadow: "0 8px 8px rgba(0,0,0,0.15)",
+  boxShadow: "0 8px 15px rgba(0,0,0,0.25)",
 };
 
 const titleBar = {
@@ -578,12 +546,44 @@ const titleBar = {
   lineHeight: "60px",
   textAlign: "center",
   width: "100%",
+  color: "#ffffff",
+  fontSize: "28px",
 };
 
 const mainContent = {
-  height: 600,
-  width: 700,
+  width: "100%",
+  maxWidth: 1000,
   display: "flex",
   justifyContent: "center",
-  alignItems: "flex-start",
+  alignItems: "center",
+  overflow: "visible",
+  padding: "20px",
+};
+
+const countdownOverlay = {
+  position: "absolute",
+  inset: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: 96,
+  fontWeight: "bold",
+  color: "white",
+  textShadow: "0 4px 20px rgba(0,0,0,0.6)",
+  background: "rgba(0,0,0,0.25)",
+  borderRadius: 12,
+  pointerEvents: "none",
+};
+
+const canvasStyle = {
+  width: 200,
+  height: 500,
+  borderRadius: 16,
+  boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+};
+
+const downloadContainer = {
+  marginTop: 16,
+  display: "flex",
+  justifyContent: "center",
 };
