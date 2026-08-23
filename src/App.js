@@ -22,7 +22,7 @@ function App() {
             <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/game.html">Minigames</a></li>
             <li><a href="https://aiiluv.github.io/Witches-in-the-underworld/quiz.html">Your spark</a></li>
             <li><a href="https://aiiluv.github.io/witches-in-the-underworld/wonderbox.html">Wonderbox</a></li>
-            <li><a href="https://aiiluv.github.io/witches-in-the-underworld-photobooth/">Photobooth</a></li>
+            <li><a href="index.html">Photobooth</a></li>
           </ul>
         </div>
       </nav>
