@@ -1,14 +1,15 @@
 {
   "files": {
     "main.css": "/Witches-in-the-underworld-photobooth/static/css/main.52277387.css",
-    "main.js": "/Witches-in-the-underworld-photobooth/static/js/main.faaa921b.js",
+    "main.js": "/Witches-in-the-underworld-photobooth/static/js/main.0b09e3c9.js",
     "static/media/bg.svg": "/Witches-in-the-underworld-photobooth/static/media/bg.8a6ca197a82be47aa135.svg",
+    "static/media/logo.png": "/Witches-in-the-underworld-photobooth/static/media/logo.27d50107130810e496dc.png",
     "index.html": "/Witches-in-the-underworld-photobooth/index.html",
     "main.52277387.css.map": "/Witches-in-the-underworld-photobooth/static/css/main.52277387.css.map",
-    "main.faaa921b.js.map": "/Witches-in-the-underworld-photobooth/static/js/main.faaa921b.js.map"
+    "main.0b09e3c9.js.map": "/Witches-in-the-underworld-photobooth/static/js/main.0b09e3c9.js.map"
   },
   "entrypoints": [
     "static/css/main.52277387.css",
-    "static/js/main.faaa921b.js"
+    "static/js/main.0b09e3c9.js"
   ]
 }
