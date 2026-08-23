@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Witches-in-the-underworld-photobooth/static/css/main.972dc419.css",
-    "main.js": "/Witches-in-the-underworld-photobooth/static/js/main.b498ec0f.js",
-    "static/media/logo.svg": "/Witches-in-the-underworld-photobooth/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/Witches-in-the-underworld-photobooth/static/css/main.52277387.css",
+    "main.js": "/Witches-in-the-underworld-photobooth/static/js/main.faaa921b.js",
+    "static/media/bg.svg": "/Witches-in-the-underworld-photobooth/static/media/bg.8a6ca197a82be47aa135.svg",
     "index.html": "/Witches-in-the-underworld-photobooth/index.html",
-    "main.972dc419.css.map": "/Witches-in-the-underworld-photobooth/static/css/main.972dc419.css.map",
-    "main.b498ec0f.js.map": "/Witches-in-the-underworld-photobooth/static/js/main.b498ec0f.js.map"
+    "main.52277387.css.map": "/Witches-in-the-underworld-photobooth/static/css/main.52277387.css.map",
+    "main.faaa921b.js.map": "/Witches-in-the-underworld-photobooth/static/js/main.faaa921b.js.map"
   },
   "entrypoints": [
-    "static/css/main.972dc419.css",
-    "static/js/main.b498ec0f.js"
+    "static/css/main.52277387.css",
+    "static/js/main.faaa921b.js"
   ]
 }
